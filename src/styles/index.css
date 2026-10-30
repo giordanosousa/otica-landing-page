@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* Tokens do design (Tailwind v4) */
+@theme {
+  --color-petrol: #084a48;
+  --color-petrol-dark: #053332;
+  --color-petrol-light: #0c5c5a;
+  --color-aqua: #149293;
+  --color-aqua-light: #6bd6d7;
+  --color-gold: #d4af37;
+  --color-gold-hover: #c5a028;
+  --color-gold-light: #f3e5ab;
+  --color-wood: #faf4ed;
+  --color-wood-accent: #d99b5b;
+
+  --font-heading: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-gold-glow: 0 10px 25px -5px rgb(212 175 55 / 0.4);
+}
+
+@layer base {
+  :root {
+    /* Cor do anel de foco. Fundos escuros trocam para dourado via .surface-dark */
+    --focus-color: var(--color-petrol);
+  }
+
+  html {
+    scroll-padding-top: 6rem; /* compensa o header sticky nas âncoras */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-body text-slate-700 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus-color);
+    outline-offset: 2px;
+  }
+
+  /* Trava o scroll do fundo enquanto o <dialog> estiver aberto */
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Superfícies escuras: foco dourado (contraste ≥ 4.5:1 sobre o petróleo) */
+@utility surface-dark {
+  --focus-color: var(--color-gold);
+}
+
+@utility glass-nav {
+  background: rgb(8 74 72 / 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@utility glass-card {
+  background: rgb(255 255 255 / 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgb(226 232 240 / 0.8);
+}
+
+@utility gold-gradient-text {
+  background: linear-gradient(135deg, #fff7ad 0%, #d4af37 50%, #c59a1e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
